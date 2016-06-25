@@ -1,0 +1,72 @@
+package round.reader;
+
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import round.model.MainEvent;
+import round.model.Round;
+import round.model.Tip;
+
+public class ReadRound {
+
+	private JSONParser parser;
+	
+	public ReadRound() {
+		parser = new JSONParser();
+	}
+	
+	public List<Round> getRoundTips() {
+		
+		List<Round> roundTips = new ArrayList<Round>();
+		
+		try {
+			 
+            Object obj = parser.parse(new FileReader("C:/Temp/UBETTipping/0.0.1/config/tips.json"));
+            
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONArray rounds = (JSONArray) jsonObject.get("Rounds");
+            rounds.forEach(round -> roundTips.add(parseRound((JSONObject)round)));
+            
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+		return roundTips;
+	}
+	
+	private Round parseRound(JSONObject jsonObject) {
+		Round round = new Round();
+		round.setRoundId((long) jsonObject.get("RoundId"));
+        round.setRoundName((String) jsonObject.get("RoundName"));
+		
+        List<MainEvent> roundMainEvents = new ArrayList<MainEvent>();
+		JSONArray mainEvents = (JSONArray) jsonObject.get("MainEvents");
+		mainEvents.forEach(mainEvent -> roundMainEvents.add(parseMainEvent((JSONObject)mainEvent)));
+		round.setMainEvents(roundMainEvents);
+		return round;
+	}
+	
+	private MainEvent parseMainEvent(JSONObject jsonObject) {
+		MainEvent mainEvent = new MainEvent();
+		mainEvent.setId((String) jsonObject.get("MainEventId"));
+		mainEvent.setName((String) jsonObject.get("MainEventName"));
+		
+		List<Tip> mainEventTips = new ArrayList<Tip>();
+		JSONArray tips = (JSONArray) jsonObject.get("Tips");
+		tips.forEach(tip -> mainEventTips.add(parseTip((JSONObject)tip)));
+		mainEvent.setTip(mainEventTips);
+		return mainEvent;
+	}
+	
+	private Tip parseTip(JSONObject jsonObject) {
+		Tip tip = new Tip();
+		tip.setId((String) jsonObject.get("OfferId"));
+		tip.setName((String) jsonObject.get("OfferName"));
+		tip.setOdds((String) jsonObject.get("odds"));
+		return tip;
+	}
+}

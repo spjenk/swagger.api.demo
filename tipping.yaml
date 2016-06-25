@@ -1,0 +1,114 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: Tipping
+
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /round:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        The Events and Tips available for a tipping week
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: week
+          in: query
+          description: Round week
+          required: true
+          type: number
+          format: int
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfEvents
+            type: array
+            items:
+              title: Event
+              type: object
+              properties:
+                eventName: 
+                  type: string
+                eventId: 
+                  type: string
+                tips:
+                  title: Tips
+                  type: array
+                  items:
+                    title: Tip
+                    type: object
+                    properties:
+                       id:
+                         type: string
+                       tip: 
+                         type: string
+                       odds:
+                         type: string
+  /pick:
+    # This is a HTTP operation
+    post:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Tip Selections for a round
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: tips
+          in: body
+          description: Round selection
+          required: true
+          schema:
+            $ref: '#/definitions/tipSelection'
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          schema:
+              title: Return String
+              type: string
+              example: "Tips added succesfully"
+        500:
+          description: Error
+          schema: 
+            type: string
+            example: "Could not add Tips"
+definitions:
+  tipSelection:
+    description: Tip object
+    properties:
+      user: 
+        type: string
+      week:
+        type: string
+        description: the round
+      selection:
+        type: array
+        description: Tip event
+        items: 
+          title: eventId
+          type: string
+    required:
+      - user
+      - week
+      - selection
+                         
+          
+                        
+                  
+                
