@@ -3,6 +3,7 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,11 @@ import java.util.Objects;
  * Tip object
  **/
 @ApiModel(description = "Tip object")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringMVCServerCodegen", date = "2016-06-25T10:47:23.644Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringMVCServerCodegen", date = "2016-06-26T03:56:38.503Z")
 public class TipSelection  {
   
   private String user = null;
-  private String week = null;
+  private BigDecimal week = null;
   private List<String> selection = new ArrayList<String>();
 
   /**
@@ -39,10 +40,10 @@ public class TipSelection  {
    **/
   @ApiModelProperty(required = true, value = "the round")
   @JsonProperty("week")
-  public String getWeek() {
+  public BigDecimal getWeek() {
     return week;
   }
-  public void setWeek(String week) {
+  public void setWeek(BigDecimal week) {
     this.week = week;
   }
 

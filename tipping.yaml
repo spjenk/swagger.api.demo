@@ -88,6 +88,43 @@ paths:
           schema: 
             type: string
             example: "Could not add Tips"
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        The Events selected by a user for a tipping week
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        - name: user
+          in: query
+          description: User whos selections we want
+          required: true
+          type: string
+        - name: week
+          in: query
+          description: Round week
+          required: true
+          type: number
+          format: int
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfEvents
+            type: array
+            items:
+              title: Event
+              type: object
+              properties:
+                eventName: 
+                  type: string
+                eventId: 
+                  type: string
+    
 definitions:
   tipSelection:
     description: Tip object
@@ -95,7 +132,8 @@ definitions:
       user: 
         type: string
       week:
-        type: string
+        type: number
+        format: int
         description: the round
       selection:
         type: array

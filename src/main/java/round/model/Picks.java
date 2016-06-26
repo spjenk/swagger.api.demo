@@ -1,10 +1,12 @@
 package round.model;
 
+import java.util.List;
+
 public class Picks {
 	
 	private String user;
-	private String round;
-	private String tip;
+	private int round;
+	private List<String> tips;
 	
 	public String getUser() {
 		return user;
@@ -12,17 +14,17 @@ public class Picks {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public String getRound() {
+	public int getRound() {
 		return round;
 	}
-	public void setRound(String round) {
+	public void setRound(int round) {
 		this.round = round;
 	}
-	public String getTip() {
-		return tip;
+	public List<String> getTips() {
+		return tips;
 	}
-	public void setTip(String tip) {
-		this.tip = tip;
+	public void setTips(List<String> tips) {
+		this.tips = tips;
 	}
 	public String getId() {
 		return user + round;

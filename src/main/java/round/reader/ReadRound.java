@@ -8,6 +8,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import io.swagger.model.InlineResponse2001;
+import io.swagger.model.RoundTips;
 import round.model.MainEvent;
 import round.model.Round;
 import round.model.Tip;
@@ -36,6 +38,23 @@ public class ReadRound {
             e.printStackTrace();
         }
 		return roundTips;
+	}
+	
+	public InlineResponse2001 createRound(MainEvent mainEvent) {
+		InlineResponse2001 event = new InlineResponse2001();
+		event.setEventName(mainEvent.getName());
+		List<RoundTips> roundTips = new ArrayList<RoundTips>();
+		mainEvent.getTip().forEach(t -> roundTips.add(createTip(t)));
+		event.setTips(roundTips);
+		return event;
+	}
+
+	public RoundTips createTip(Tip tip) {
+		RoundTips roundTip = new RoundTips();
+		roundTip.setId(tip.getId());
+		roundTip.setTip(tip.getName());
+		roundTip.setOdds(tip.getOdds());
+		return roundTip;
 	}
 	
 	private Round parseRound(JSONObject jsonObject) {
