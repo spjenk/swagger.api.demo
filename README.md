@@ -11,3 +11,9 @@ The underlying library integrating swagger to Spring-MVC is [springfox](https://
 
 You can view the server in swagger-ui by pointing to
 http://localhost:8002/swagger-ui.html
+
+## Running the application
+
+mvn clean package jetty:run
+
+*Requires mongoDB
